@@ -1,0 +1,22 @@
+#container{
+  background-color: black;	
+  width:100%;
+  height:900px;
+  text-align: center;	
+  font-size: 30px;
+  color: white;
+    
+}
+
+
+#hangman{
+	position: absolute;
+	bottom: 0px;
+	height:50%;
+	margin: 0 auto;
+}
+
+span{
+    font: white;
+    
+}

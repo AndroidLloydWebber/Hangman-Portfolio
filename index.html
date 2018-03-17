@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <title>HangMan</title>
+
+
+<link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div id="container">
+    <div id="span">
+	WORD: <span id="theWord"></span><br>
+	LETTERS: <span id="letterBlanks"></span><br>
+	WINS: <span id="winTotal"></span><br>
+	LOSSES: <span id="lossCount"></span><br>
+	LIVES LEFT: <span id="user-lives">8</span><br>
+	LETTERS GUESSED: <span id="lettersGuessed"></span><br>
+                    <span id= "userAlert"></span>
+                    <span id= "bluesImg"></span>
+                    <span id= "mainImg"></span>
+    </div>
+    <img id="hangman" alt="hangman-image" src="assets/imgs/0.jpg">
+
+</div>
+    
+    
+    
+<script>
+
+//Variables
+//HangMan Array
+var randomWords = ["KING", "WOLF", "LEADBELLY", "DIDDLEY", "MUDDY", "JOHNSON", "GUY"];
+var lettersGuessed = [];
+var gameReset;
+var alphabet = getAlphabetArray();
+var alphabetArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+    
+
+var wins = 0,
+losses = 0,
+correct = 0,
+word = 0,
+lives = 9;
+    
+
+var letterBlanks = [];
+var randomWord = "";
+var song = new Audio();
+
+var userAlert = document.getElementById("userAlert");
+var userGuess = document.getElementById("lettersGuessed");
+var userLives = document.getElementById("user-lives");
+var loserTick = document.getElementById("lossCount");
+var winTick   = document.getElementById("winTotal");
+var letters   = document.getElementById("letterBlanks");
+var theWord   = document.getElementById("theWord");
+var bluesImg  = document.getElementById("bluesImg");
+var hangImg   = document.getElementById("hangImg");
+var mainImg   = document.getElementById("mainImg");
+winTotal.textContent = wins;
+lossCount.textContent = losses;
+
+
+
+    
+
+document.onkeydown = function(event) {
+    if (event.key == '13' && gameReset == 'reset') {
+        gameReset();
+    }
+     else if (isValidLetter(event.key) && gameReset == 'start') {
+         update(event.key.toUpperCase());
+     }   
+     else if (event.key == '13' && gameReset == 'over') {
+         
+     }       
+        
+}
+    
+    function gameStart() {
+        gameReset = 'start';
+        userAlert.textContent = "Press Spacebar to Begin." userGuess.textContent = ""; letters.textContent = "";
+        
+    }
+    
+    function gameOver() {
+//        gameReset = 
+	if (letterBlanks.indexOf("_") === 0) {
+		wins++;
+		alert("NICE ONE Blues Traveler!");
+	} else {
+		losses++;
+		alert("Protect Your Neck... It's Broken!"){
+            gameReset();
+        }
+	}
+	
+	document.textContent("winCount").innerHTML = wins;
+	document.textContent("lossCount").innerHTML = losses;
+	//Let's play again!
+	gameReset();
+	}
+function checkGameOver () {
+	return userLives === 0 || gameOver == true;
+}
+function isValidLetter(letter){
+	return alphabet.indexOF(letter) > -1;
+	}
+function updateWrongGuess() {
+	 userLives--;
+	 document.textContent("lettersGuessed").innerHTML = lettersGuessed.join(" ");
+	 document.getElementById("user-lives").innerHTML = userLives;
+}
+function inititalizeGame(){
+	userLives = 9;
+	lettersGuessed = [];
+	letterBlanks = []; 
+    word =
+	randomword = word[Math.floor(Math.random()=word.length)];
+	for (var i=0; i < randomWord.length; i++){
+		letterBlanks.push("_");
+	}
+}
+function getAlphabetArray () {
+	var alphabetArray=[];
+	for (var i = "a".charCodeAt(0); i <= "z".charCodeAt(0); i++){
+		alphabetArray.push(String.fromCharCode(i));
+	}
+	return alphabetArray;
+}
+	
+document.onkeyup = function(event) {
+	
+	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+	
+	if (word.indexOf (userGuess) > -1) {
+		alert("You guessed a correct letter");
+		document.textContent('theWord').innerHTML += userGuess;
+		document.textContent('lettersGuessed').innerHTML += userGuess;
+		correct = correct + 1;
+		if (letterBlanks === 0) {
+    		alert("YOU WON");
+    		inititalizGame();
+    	}
+}   else {
+	lives = lives - 1;
+	if (lives === 0) {
+    	alert("YOU LOSE");
+	} else {
+	alert("WRONG GUESS! YOU NOW HAVE " + lives + " LIVES.");
+		document.textContent('lettersGuessed').innerHTML += userGuess;
+		document.textContent('user-lives').innerHTML = lives;
+		}
+     {
+        gameReset();
+    }
+}
+	
+}
+</script>
+
+</body>
+</html>
