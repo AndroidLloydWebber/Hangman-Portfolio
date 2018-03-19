@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <title>HangMan</title>
 
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="assets/css/style.css" rel="stylesheet">
 
 </head>
 <body>
-
+<div>
 <div id="container">
     <div id="span">
         <h1>HangMan the Blues Edition</h1>
@@ -20,20 +20,89 @@
 	WRONG: <span id="lossCount"></span><br>
 	CHANCES LEFT: <span id="guessesLeft">9</span><br>
 <!--	LETTERS GUESSED: <span id="wrongLetters"></span><br>-->
-                    <span id= ""></span>
+                    <span id= "chickenDinner"></span>
                     <span id= "bluesImg"></span>
                     <span id= "mainImg"></span>
-        <img id="hangman" alt="hangman-image" src="assets/imgs/9.jpg">
+<!--        <img id="hangman" alt="hangman-image" src="assets/imgs/9.jpg">--> 
+    <div class="main-wrap">
+  <span onclick='startGame()' class="reset">&#x21bb;<h4>reset</h4></span>
+  <div class="guesses-wrap">
+    <p class="instructions">Guess the Blues Legend
+<!--     <p >You have <b><span class="wrongLetters">6</span></b> guesses left.</p> -->
+     <span id="wordToGuess"></span><br> 
+    </p>  
+  </div>
+  <div class="blanksAndLetters">
+    <p class="selectedWord"></p>
+  </div>
+  <div class="input-wrap">
+    <img id="bluesman" alt="hangman-image" src="assets/imgs/bluesTrio.jpg">
+    <div>
+      <p></p>
     </div>
+  </div>
+  <div class="debug"></div>
+</div>
+</div>
+    <section class="intro">
+    <row>
+      <div class="col-lg-6 col-sm-12 right">
+          <img id="bluesMan" alt="hangman-image" src="assets/imgs/bluesTrio.jpg">
+
+        <p>
+          
+        </p>
+      </div>
+    </row>
+  </section>
+  <section class="about">
+    <div>
+      <p>
+        
+      </p>
+    </div>
+  </section>
+</div>
+
 <!--    <img id="hangman" alt="hangman-image" src="assets/imgs/9.jpg">-->
 
-
+<!--
+<div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    <li class="wordToGuess">Cras justo odio</li>
+    <li class="wrongLetters">Dapibus ac facilisis in</li>
+    <li class="winCount">Vestibulum at eros</li>
+    <li class="lossCount">Vestibulum at eros</li>
+    <li class="guessesLeft">Vestibulum at eros</li> 
+  </ul>
+</div>
+</div>
+-->
+<!--
+<div class="main-wrap">
+  <span onclick='reset()' class="reset">&#x21bb;</span>
+  <div class="guesses-wrap">
+    <p class="instructions">Input your guess and click the button.</p>
+     <p >You have <b><span class="guesses">6</span></b> guesses left.</p> 
+  </div>
+  <div class="answer-wrap">
+    <p class="answer">******</p>
+  </div>
+  <div class="input-wrap">
+    <input type="text" id="user-guess" value="">
+    <div onclick='guess()' class="guess-btn">
+      <p>Guess</p>
+    </div>
+  </div>
+  <div class="debug"></div>
+</div>
     
+-->
     
     
 <script>
 
- alert("Enter alphabets to guess the word!");
+ alert("Enter letter to guess the word!");
 
 var wordOptions = ["KING", "MUDDY", "WOLF", "BUDDY", "DIDDLEY"];
 var selectedWord = "";
@@ -44,7 +113,8 @@ var wrongLetters = [];
 var winCount = 0;
 var lossCount = 0;
 var guessesLeft = 9;
-
+var img = document.getElementById("img");
+var song = new Audio();
 
 
 function startGame() {
@@ -114,13 +184,32 @@ for(var i = 0; i < lettersInWord.length; i++) {
       
       
       
-      if(lettersInWord.toString() == blanksAndLetters.toString()) {
+      if(lettersInWord.toString() === blanksAndLetters.toString()) {
         winCount++;
-        alert("You Won! Refresh Page To Start New Game");
-        document.getElementById("winCount").innerHTML = winCount;       
+        alert("You're a winner");
+        document.getElementById("winCount").innerHTML = winCount;  
         
+	   switch (selectedWord) {
+		case ('KING'):
+			//song.src = ('assets/.mp3');
+			//song.play();
+			img.src = 'assets/imgs/bluesTrio.jpg';
+			break;
+		case ('WOLF'):
+			//song.src = ('assets/.mp3');
+			//song.play();
+			img.src = 'assets/imgs/bluesTrio.jpg';
+			break;
+		case ('MUDDY'):
+			//song.src = ('assets/.mp3');
+			//song.play();
+			img.src = 'assets/imgs/muddy.jpeg';
+			break;
+	} 
         
         startGame();
+          
+        
       }
 
       else if(guessesLeft == 0) {

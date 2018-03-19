@@ -9,14 +9,80 @@
 }
 
 
-#hangman{
+/*
+#bluesman{
 	position: absolute;
 	bottom: 0px;
-	height:50%;
+	height: 50%;
 	margin: 0 auto;
 }
+*/
 
 span{
     font: white;
     
+}
+
+html{
+  background: #111;
+  font-family: sans-serif;
+  color: white;
+    
+    
+}
+.main-wrap{
+  width: 500px;
+  height: 600px;
+  background: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 0px auto;
+  border-radius: 10px;
+  float: left;
+}
+.answer-wrap{
+  background: #444;
+  width: 250px;
+  border-radius: 5px;
+  margin: 10px;
+}
+.input-wrap{
+  width: 110px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.guess-btn{
+  height: 30px;
+  width: 60px;
+  background: green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.reset{
+  height: 0px;
+  width: 30px;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  right: 0;
+  align-self: flex-end;
+  transform: translate(-15px,-50px);
+  font-size: 1.5em;
+ 
+}
+
+section {
+    float: right;
 }
