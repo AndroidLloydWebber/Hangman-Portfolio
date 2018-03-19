@@ -13,156 +13,142 @@
 
 <div id="container">
     <div id="span">
-	WORD: <span id="theWord"></span><br>
-	LETTERS: <span id="letterBlanks"></span><br>
-	WINS: <span id="winTotal"></span><br>
-	LOSSES: <span id="lossCount"></span><br>
-	LIVES LEFT: <span id="user-lives">8</span><br>
-	LETTERS GUESSED: <span id="lettersGuessed"></span><br>
-                    <span id= "userAlert"></span>
+        <h1>HangMan the Blues Edition</h1>
+	WORD: <span id="wordToGuess"></span><br>
+	GUESSES: <span id="wrongLetters"></span><br>
+	CORRECT: <span id="winCount"></span><br>
+	WRONG: <span id="lossCount"></span><br>
+	CHANCES LEFT: <span id="guessesLeft">9</span><br>
+<!--	LETTERS GUESSED: <span id="wrongLetters"></span><br>-->
+                    <span id= ""></span>
                     <span id= "bluesImg"></span>
                     <span id= "mainImg"></span>
+        <img id="hangman" alt="hangman-image" src="assets/imgs/9.jpg">
     </div>
-    <img id="hangman" alt="hangman-image" src="assets/imgs/0.jpg">
+<!--    <img id="hangman" alt="hangman-image" src="assets/imgs/9.jpg">-->
 
-</div>
+
     
     
     
 <script>
 
-//Variables
-//HangMan Array
-var randomWords = ["KING", "WOLF", "LEADBELLY", "DIDDLEY", "MUDDY", "JOHNSON", "GUY"];
-var lettersGuessed = [];
-var gameReset;
-var alphabet = getAlphabetArray();
-var alphabetArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+ alert("Enter alphabets to guess the word!");
 
-    
+var wordOptions = ["KING", "MUDDY", "WOLF", "BUDDY", "DIDDLEY"];
+var selectedWord = "";
+var lettersInWord = [];
+var blanksAndLetters = [];
+var wrongLetters = [];
 
-var wins = 0,
-losses = 0,
-correct = 0,
-word = 0,
-lives = 9;
-    
-
-var letterBlanks = [];
-var randomWord = "";
-var song = new Audio();
-
-var userAlert = document.getElementById("userAlert");
-var userGuess = document.getElementById("lettersGuessed");
-var userLives = document.getElementById("user-lives");
-var loserTick = document.getElementById("lossCount");
-var winTick   = document.getElementById("winTotal");
-var letters   = document.getElementById("letterBlanks");
-var theWord   = document.getElementById("theWord");
-var bluesImg  = document.getElementById("bluesImg");
-var hangImg   = document.getElementById("hangImg");
-var mainImg   = document.getElementById("mainImg");
-winTotal.textContent = wins;
-lossCount.textContent = losses;
+var winCount = 0;
+var lossCount = 0;
+var guessesLeft = 9;
 
 
 
-    
+function startGame() {
 
-document.onkeydown = function(event) {
-    if (event.key == '13' && gameReset == 'reset') {
-        gameReset();
-    }
-     else if (isValidLetter(event.key) && gameReset == 'start') {
-         update(event.key.toUpperCase());
-     }   
-     else if (event.key == '13' && gameReset == 'over') {
-         
-     }       
+  blanksAndLetters = [];
+  wrongLetters = [];
+  guessesLeft = 9;
+  winCount = 0;
+  lossCount = 0;
+
+  selectedWord = wordOptions[Math.floor(Math.random() * wordOptions.length)];
+  console.log(selectedWord);
+  lettersInWord = selectedWord.split("");
+  console.log(lettersInWord);
+
+  for(var i = 0; i < lettersInWord.length; i++) {
+    blanksAndLetters.push("_");
+    console.log(blanksAndLetters[i]);
+  }
+
+  document.getElementById("wordToGuess").innerHTML = blanksAndLetters.join(" ");
+  document.getElementById("wrongLetters").innerHTML = wrongLetters.join(" ");
+  document.getElementById("guessesLeft").innerHTML = guessesLeft;
+  document.getElementById("winCount").innerHTML = winCount;
+  document.getElementById("lossCount").innerHTML = lossCount;
+ 
+}
+
+
+
+function checkLetters(letter){
+
+  var isCorrectGuess = false;
+
+for(var i = 0; i < lettersInWord.length; i++) {
+  if(selectedWord[i] === letter && blanksAndLetters[i] === "_") {
+    blanksAndLetters[i] = letter;
+    console.log(letter + " is correct!");
+    winCount++;   
+    isCorrectGuess = true;
+  } else if(selectedWord[i] === letter) {
+    alert("Letter Already Used!");
+    isCorrectGuess = true;
+  }
+}
+
+ if(!isCorrectGuess) {
+   console.log(letter + " is not correct!");
+   console.log("Wrong letter");
+   wrongLetters.push(letter);
+   guessesLeft--;
+   lossCount++;
+  }
+
+}
+
+
+    function roundComplete() {
+      console.log("Win Count:" + winCount + " | Loss Count: " + lossCount + " | Guesses Left: " + guessesLeft);
+
+      document.getElementById("lossCount").innerHTML= lossCount;
+      document.getElementById("winCount").innerHTML = winCount;  
+      document.getElementById("guessesLeft").innerHTML = guessesLeft;
+      document.getElementById("wordToGuess").innerHTML = blanksAndLetters.join(" ");
+      document.getElementById("wrongLetters").innerHTML = wrongLetters.join(" ");
+
+      
+      
+      
+      if(lettersInWord.toString() == blanksAndLetters.toString()) {
+        winCount++;
+        alert("You Won! Refresh Page To Start New Game");
+        document.getElementById("winCount").innerHTML = winCount;       
         
-}
-    
-    function gameStart() {
-        gameReset = 'start';
-        userAlert.textContent = "Press Spacebar to Begin." userGuess.textContent = ""; letters.textContent = "";
         
+        startGame();
+      }
+
+      else if(guessesLeft == 0) {
+        lossCount++;
+        alert("You're just 'Hanging' Now!");
+        document.getElementById("lossCount").innerHTML = lossCount;
+              
+       
+        startGame();
+      }
     }
+      
+     
+
+
+startGame();
+
     
-    function gameOver() {
-//        gameReset = 
-	if (letterBlanks.indexOf("_") === 0) {
-		wins++;
-		alert("NICE ONE Blues Traveler!");
-	} else {
-		losses++;
-		alert("Protect Your Neck... It's Broken!"){
-            gameReset();
-        }
-	}
-	
-	document.textContent("winCount").innerHTML = wins;
-	document.textContent("lossCount").innerHTML = losses;
-	//Let's play again!
-	gameReset();
-	}
-function checkGameOver () {
-	return userLives === 0 || gameOver == true;
-}
-function isValidLetter(letter){
-	return alphabet.indexOF(letter) > -1;
-	}
-function updateWrongGuess() {
-	 userLives--;
-	 document.textContent("lettersGuessed").innerHTML = lettersGuessed.join(" ");
-	 document.getElementById("user-lives").innerHTML = userLives;
-}
-function inititalizeGame(){
-	userLives = 9;
-	lettersGuessed = [];
-	letterBlanks = []; 
-    word =
-	randomword = word[Math.floor(Math.random()=word.length)];
-	for (var i=0; i < randomWord.length; i++){
-		letterBlanks.push("_");
-	}
-}
-function getAlphabetArray () {
-	var alphabetArray=[];
-	for (var i = "a".charCodeAt(0); i <= "z".charCodeAt(0); i++){
-		alphabetArray.push(String.fromCharCode(i));
-	}
-	return alphabetArray;
-}
-	
 document.onkeyup = function(event) {
-	
-	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-	
-	if (word.indexOf (userGuess) > -1) {
-		alert("You guessed a correct letter");
-		document.textContent('theWord').innerHTML += userGuess;
-		document.textContent('lettersGuessed').innerHTML += userGuess;
-		correct = correct + 1;
-		if (letterBlanks === 0) {
-    		alert("YOU WON");
-    		inititalizGame();
-    	}
-}   else {
-	lives = lives - 1;
-	if (lives === 0) {
-    	alert("YOU LOSE");
-	} else {
-	alert("WRONG GUESS! YOU NOW HAVE " + lives + " LIVES.");
-		document.textContent('lettersGuessed').innerHTML += userGuess;
-		document.textContent('user-lives').innerHTML = lives;
-		}
-     {
-        gameReset();
-    }
-}
-	
-}
+  var pressedLetter = String.fromCharCode(event.keyCode).toUpperCase();
+  console.log("You just pressed " + pressedLetter + " .");
+  
+  checkLetters(pressedLetter);
+
+  roundComplete();
+}  
 </script>
+</div>
 
 </body>
 </html>
