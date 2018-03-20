@@ -47,7 +47,7 @@
     <section class="intro">
     <row>
       <div class="col-lg-6 col-sm-12 right">
-          <img id="bluesMan" alt="hangman-image" src="assets/imgs/bluesTrio.jpg">
+          <img id="bluesMan" alt="hangman-image" src="assets/imgs/legends.jpg">
 
         <p>
           
@@ -66,45 +66,14 @@
 
 <!--    <img id="hangman" alt="hangman-image" src="assets/imgs/9.jpg">-->
 
-<!--
-<div class="card" style="width: 18rem;">
-  <ul class="list-group list-group-flush">
-    <li class="wordToGuess">Cras justo odio</li>
-    <li class="wrongLetters">Dapibus ac facilisis in</li>
-    <li class="winCount">Vestibulum at eros</li>
-    <li class="lossCount">Vestibulum at eros</li>
-    <li class="guessesLeft">Vestibulum at eros</li> 
-  </ul>
-</div>
-</div>
--->
-<!--
-<div class="main-wrap">
-  <span onclick='reset()' class="reset">&#x21bb;</span>
-  <div class="guesses-wrap">
-    <p class="instructions">Input your guess and click the button.</p>
-     <p >You have <b><span class="guesses">6</span></b> guesses left.</p> 
-  </div>
-  <div class="answer-wrap">
-    <p class="answer">******</p>
-  </div>
-  <div class="input-wrap">
-    <input type="text" id="user-guess" value="">
-    <div onclick='guess()' class="guess-btn">
-      <p>Guess</p>
-    </div>
-  </div>
-  <div class="debug"></div>
-</div>
-    
--->
+
     
     
 <script>
 
  alert("Enter letter to guess the word!");
 
-var wordOptions = ["KING", "MUDDY", "WOLF", "BUDDY", "DIDDLEY"];
+var wordOptions = ["BB_KING", "MUDDY_WATERS", "HOWLIN_WOLF", "BUDDY_GUY", "BO_DIDDLEY", "LIL_WALTER", "LEADBELLY", "JOHN_LEE_HOOKER", "BOBBY_BLUE_BLAND", "ROBERT_JOHNSON"];
 var selectedWord = "";
 var lettersInWord = [];
 var blanksAndLetters = [];
@@ -186,14 +155,14 @@ for(var i = 0; i < lettersInWord.length; i++) {
       
       if(lettersInWord.toString() === blanksAndLetters.toString()) {
         winCount++;
-        alert("You're a winner");
+        alert("You're a winner, winner chicken dinner");
         document.getElementById("winCount").innerHTML = winCount;  
         
 	   switch (selectedWord) {
 		case ('KING'):
 			//song.src = ('assets/.mp3');
 			//song.play();
-			img.src = 'assets/imgs/bluesTrio.jpg';
+			img.src = 'assets/imgs/170px-Buddy-Guy.jpg';
 			break;
 		case ('WOLF'):
 			//song.src = ('assets/.mp3');
@@ -207,7 +176,7 @@ for(var i = 0; i < lettersInWord.length; i++) {
 			break;
 	} 
         
-        startGame();
+//        startGame();
           
         
       }
